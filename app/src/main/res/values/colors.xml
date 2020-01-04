@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0895A3</color>
+    <color name="colorPrimaryDark">#055561</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+
+
+
+    <color name="DarkColor">#080808</color>
+    <color name="WhiteColor">#FFFFFF</color>
+    <color name="AddNoteFloatBackgroundColor">#3aa8c1</color>
+
+
+
+
+</resources>
