@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
         profileUpdate = (Button)  findViewById(R.id.btnProfileUpdate);
         changePassword = (Button) findViewById(R.id.btnChangePassword);
 
-
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
