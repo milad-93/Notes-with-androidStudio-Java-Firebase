@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             setContentView(R.layout.activity_home);
 
             //iniate
-            setUpUiViews();
+            viewSetUp();
 
             // refrense
             notesDb = database.getReference("NoteList").child(firebaseAuth.getCurrentUser().getUid());
@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
     //# end Region
 
 //#start region initate to xml
-    private void setUpUiViews(){
+    private void viewSetUp(){
         recyclerView = findViewById(R.id.recyclerView);
         addNotePageButton = findViewById(R.id.fab_button_addPage);
         firebaseAuth = FirebaseAuth.getInstance(); // get inSTACE

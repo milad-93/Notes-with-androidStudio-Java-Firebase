@@ -30,7 +30,7 @@ public class NoteInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_input);
-        SetUpUiViews();
+        viewSetUp();
 
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
@@ -87,7 +87,7 @@ public class NoteInputActivity extends AppCompatActivity {
 
 
 
-  private void SetUpUiViews(){
+  private void viewSetUp(){
       titleInput = findViewById(R.id.etNoteDescripton);
       textInput= findViewById(R.id.etNoteText);
       btn_saveNote = findViewById(R.id.btn_add_note);

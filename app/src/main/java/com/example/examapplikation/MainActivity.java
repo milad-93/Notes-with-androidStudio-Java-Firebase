@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide(); // hide actionbar
         // assign to the (Widget) id defined in the xml
-        setUpUiViews();
+        viewSetUp();
 
         Info.setText("Number of attemepts remaining: 3");
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //#Region Views
-    private void setUpUiViews(){
+    private void viewSetUp(){
         Name = (EditText) findViewById(R.id.etName);
         Password = (EditText) findViewById(R.id.etPassword);
         Info = (TextView) findViewById(R.id.tvInfo);

@@ -42,7 +42,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
 
 
-    private static int Pick_Image = 123;
+    private static int choose_profile_image = 123;
     private StorageReference storageReference; // root
     Uri UserProfileimagePath;
 
@@ -50,7 +50,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // image choose
 
-        if(requestCode == Pick_Image && resultCode == RESULT_OK && data.getData() !=null){
+        if(requestCode == choose_profile_image && resultCode == RESULT_OK && data.getData() !=null){
             UserProfileimagePath = data.getData();
             try{
                 //convert to process
@@ -69,10 +69,9 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
 
-        newUserName = findViewById(R.id.etNameUpdate);
-        newUserEmail= findViewById(R.id.etEmailUpdate);
-        ChangeProfilePic = findViewById(R.id.ivEditProfilePic);
-        updatedProfileSave = findViewById(R.id.btnProfileUpdateSave);
+        // initiate
+        viewSetUp();
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -146,8 +145,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                     }
                 });
 
-
-
                 finish(); // back to last activity profile activity
 
             }
@@ -159,10 +156,17 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType( "image/*"); //aplication/pdf // getting image
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select image"),Pick_Image); //  CHEKCS IF SUCSESSFULL OR NOT
+                startActivityForResult(Intent.createChooser(intent,"Select image"),choose_profile_image); //  CHEKCS IF SUCSESSFULL OR NOT
             }
         });
 
+    }
+
+    public void viewSetUp(){
+        newUserName = findViewById(R.id.etNameUpdate);
+        newUserEmail= findViewById(R.id.etEmailUpdate);
+        ChangeProfilePic = findViewById(R.id.ivEditProfilePic);
+        updatedProfileSave = findViewById(R.id.btnProfileUpdateSave);
 
     }
 

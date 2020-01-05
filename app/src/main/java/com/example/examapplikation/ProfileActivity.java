@@ -77,7 +77,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 profileName.setText(userProfile.getUserName());
                 profileEmail.setText( userProfile.getUserEmail());
-
             }
 
             @Override
@@ -86,7 +85,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
 
 
 

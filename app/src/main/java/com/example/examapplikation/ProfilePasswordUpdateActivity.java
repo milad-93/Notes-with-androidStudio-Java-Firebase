@@ -27,7 +27,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_password_update);
 
-        setUpViews();
+        viewSetUp();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); // current inlogged user
 
         update.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +54,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
 
     }
 
-    public void setUpViews(){
+    public void viewSetUp(){
 
         update = findViewById(R.id.btnUpdatePassword);
         newPassword = findViewById(R.id.etNewPassword);

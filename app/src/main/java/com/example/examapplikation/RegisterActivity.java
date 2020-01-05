@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // refrence function oncreate main functon
-        setupUiViews();
+        viewSetUp();
 
         // instance of authetciator of this variable object of this main class
         firebaseAuth = FirebaseAuth.getInstance();
@@ -136,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //assign to the variables to the id in the xml!
-    private void setupUiViews(){
+    private void viewSetUp(){
         userName = (EditText) findViewById(R.id.etUserName);
         userPassword = (EditText) findViewById(R.id.etUserPassword);
         userEmail = (EditText) findViewById(R.id.etUserEmail);

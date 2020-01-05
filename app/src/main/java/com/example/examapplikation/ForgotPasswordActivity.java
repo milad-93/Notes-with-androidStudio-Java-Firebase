@@ -24,7 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        Views();
+        viewSetUp();
 
 
 
@@ -57,7 +57,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     }
 
-    private void Views(){
+    private void viewSetUp(){
         pwEmail= (EditText)findViewById(R.id.etPasswordEmail); //assign
         resetPw= (Button) findViewById(R.id.btnPasswordReset);
         firebaseAuth= FirebaseAuth.getInstance(); // instace of main class
