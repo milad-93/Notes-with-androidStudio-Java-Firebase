@@ -43,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseRecyclerOptions<NotesList> options;
     FirebaseRecyclerAdapter<NotesList, NoteViewHolder> adapter; // adapter
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

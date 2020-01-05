@@ -87,7 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
         // goes to profile update page
         profileUpdate.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
             @Override

@@ -114,7 +114,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             }
         }) ;
 
-
         updatedProfileSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

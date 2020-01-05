@@ -50,7 +50,6 @@ public class NoteInputActivity extends AppCompatActivity {
 
     }
 
-
   private void  SendDataToDataBase(){ // send to dataBase
         final String title = titleInput.getText().toString();
         String text = textInput.getText().toString();

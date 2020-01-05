@@ -53,7 +53,6 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
 
 
     }
-
     public void viewSetUp(){
 
         update = findViewById(R.id.btnUpdatePassword);

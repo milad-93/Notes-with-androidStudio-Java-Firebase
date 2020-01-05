@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); // hide actionbar
         // assign to the (Widget) id defined in the xml
         viewSetUp();
-
         Info.setText("Number of attemepts remaining: 3");
 
         firebaseAuth = firebaseAuth.getInstance();

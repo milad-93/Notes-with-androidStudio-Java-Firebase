@@ -93,8 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
        });
 
 
-
-
         //listens to the click frmo the user we register
         regButton.setOnClickListener(new View.OnClickListener() {
 
