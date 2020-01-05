@@ -35,5 +35,4 @@ public class MySplashScreenActivity extends AppCompatActivity { // this class is
         }
     }
 }
-
 //#EndRegion
