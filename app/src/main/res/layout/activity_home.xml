@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
-    android:background="@color/DarkColor"
+    android:background="@drawable/gradient"
 
     tools:context=".HomeActivity">
 

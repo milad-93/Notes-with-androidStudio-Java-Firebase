@@ -125,9 +125,15 @@ public class ProfileActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logoutMenu:{
                 Logout();
+                finish();
+                break;
             }
             case R.id.HomeMenu:{
                 startActivity(new Intent(ProfileActivity.this,HomeActivity.class));
+                finish();
+                finish();
+                break;
+
             }
         }
 

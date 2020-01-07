@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText Name;
     private EditText Password;
-    private TextView Info;
     private Button Login;
-    private int failedAttempts = 3;
     private TextView userRegistration;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -36,10 +34,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getSupportActionBar().hide(); // hide actionbar
-        // assign to the (Widget) id defined in the xml
         viewSetUp();
-    //    Info.setText("Number of attemepts remaining: 3");
 
         firebaseAuth = firebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this); // user click on log in first gonna check the function if it match requirement(if its in the database and can login)
@@ -53,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         //# Region on click listeners
 
+        // login
         Login.setOnClickListener(new View.OnClickListener() { //validate
             @Override
             public void onClick(View v) { //button
@@ -60,15 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 validate (Name.getText().toString(), Password.getText().toString());
             }
         });
-
-
+            // register
         userRegistration.setOnClickListener(new View.OnClickListener() { // button on main to register
             @Override
             public void onClick(View v) { //button
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
-
+        // forgot passsword
         forgotPasword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,12 +76,11 @@ public class MainActivity extends AppCompatActivity {
     //#EndRegion
 
 
-    //#Region LoggIn
+    //#Region signIn
     private void validate (String userName, String userPassword){
         progressDialog.setMessage("Logging in..");
         progressDialog.show();
 
-   // addOncomplete listener checks if the task is sucsessful or not to the database
         firebaseAuth.signInWithEmailAndPassword(userName,userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
@@ -95,21 +91,20 @@ public class MainActivity extends AppCompatActivity {
                     emailVerification(); // checking if verification done
                 }else{
                     Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
-                  progressDialog.dismiss(); // so it doesnt run when its failed aswell!
-
+                  progressDialog.dismiss();
                 }
             }
         });
     }
     //#EndRegion
 
-    //#Region Check if Email Verifed when logging in
-    private void emailVerification(){ // if not VERIFED EMAIL!!!!!
+    //#Region Check if Email verification when log in
+    private void emailVerification(){ // verify email before logging in
 
         FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-        Boolean email = firebaseUser.isEmailVerified();
+        Boolean accountEmail = firebaseUser.isEmailVerified();
 
-        if(email){
+        if(accountEmail){
         finish();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }else {
@@ -123,13 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
     //#Region Views
     private void viewSetUp(){
-        Name = (EditText) findViewById(R.id.etName);
+
         Password = (EditText) findViewById(R.id.etPassword);
-      //  Info = (TextView) findViewById(R.id.tvInfo);
-        Login = (Button) findViewById(R.id.btnLogin);
         userRegistration = (TextView)findViewById(R.id.tvRegister);
+        Login = (Button) findViewById(R.id.btnLogin);
         forgotPasword = (TextView)findViewById(R.id.tvForgotPassword);
+        Name = (EditText) findViewById(R.id.etName);
 
     }
+
     //#EndRegion
 }

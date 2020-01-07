@@ -40,8 +40,6 @@ public class NoteInputActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference =  firebaseDatabase.getReference("NoteList");
 
-
-
         btn_saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +48,7 @@ public class NoteInputActivity extends AppCompatActivity {
         });
 
     }
-
+    //#Region create note
   private void  SendDataToDataBase(){ // send to dataBase
         final String title = titleInput.getText().toString();
         String text = textInput.getText().toString();
@@ -83,14 +81,13 @@ public class NoteInputActivity extends AppCompatActivity {
             Toast.makeText(this, "Fill in all fields", Toast.LENGTH_SHORT).show();
         }
   }
+    //#endRegion
 
   private void viewSetUp(){
       titleInput = findViewById(R.id.etNoteDescripton);
       textInput= findViewById(R.id.etNoteText);
       btn_saveNote = findViewById(R.id.btn_add_note);
-
   }
-
     //#Region Menu
     private void Logout(){
         firebaseAuth.signOut();

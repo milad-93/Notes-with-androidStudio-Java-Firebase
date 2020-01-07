@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        // refrence function oncreate main functon
+        getSupportActionBar().hide(); // hide actionbar
         viewSetUp();
 
         // instance of authetciator of this variable object of this main class
@@ -219,11 +219,13 @@ public class RegisterActivity extends AppCompatActivity {
     //assign to the variables to the id in the xml!
     private void viewSetUp(){
         userName = (EditText) findViewById(R.id.etUserName);
-        userPassword = (EditText) findViewById(R.id.etUserPassword);
         userEmail = (EditText) findViewById(R.id.etUserEmail);
+        userPassword = (EditText) findViewById(R.id.etUserPassword);
+        userProfilePic=(ImageView) findViewById(R.id.ivRegister);
         regButton = (Button) findViewById(R.id.btnRegister);
         userLogin = (TextView) findViewById(R.id.tvUserLogin);
-        userProfilePic=(ImageView) findViewById(R.id.ivRegister);
+
+
 
     }
 }

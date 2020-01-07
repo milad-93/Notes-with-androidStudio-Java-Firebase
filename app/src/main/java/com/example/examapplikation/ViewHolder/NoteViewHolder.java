@@ -26,7 +26,7 @@ public  class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) { // on clik update delete on every object
 
-    menu.setHeaderTitle("Select desired option");
+   // menu.setHeaderTitle("Select desired option");
     menu.add(0,0,getAdapterPosition(),"Edit Note");
     menu.add(0,0,getAdapterPosition(),"Delete Note");
 
