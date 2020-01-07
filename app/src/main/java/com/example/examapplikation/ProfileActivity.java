@@ -107,12 +107,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    // everything below is used in the menu
-
-    private void Logout(){ // sign out method called in switchcase
+    //#Region Menu
+    private void Logout(){
         firebaseAuth.signOut();
         finish();
-        startActivity(new Intent(ProfileActivity.this,MainActivity.class)); // vf krasch?
+        startActivity(new Intent(ProfileActivity.this,MainActivity.class));
     }
 
     @Override
@@ -134,4 +133,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //#EndRegion
+
 }

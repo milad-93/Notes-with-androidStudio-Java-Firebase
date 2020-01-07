@@ -4,13 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
+
     app:cardUseCompatPadding="true">
 
 
     <LinearLayout
+        android:background="@color/LightPink"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+
         android:padding="8dp">
 
 
@@ -24,6 +27,7 @@
 
         <TextView
             android:id="@+id/text_title"
+            android:background="@color/LightPink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Title"

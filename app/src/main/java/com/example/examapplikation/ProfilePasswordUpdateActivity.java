@@ -3,7 +3,10 @@ package com.example.examapplikation;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -58,4 +61,33 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         update = findViewById(R.id.btnUpdatePassword);
         newPassword = findViewById(R.id.etNewPassword);
     }
+
+
+    //#Region Menu
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ProfilePasswordUpdateActivity.this,MainActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //create menu on toolbar
+        getMenuInflater().inflate(R.menu.menu,menu); //inflated inside
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) { // handle on click events on items on menu
+        switch(item.getItemId()){
+            case R.id.logoutMenu:{
+                Logout();
+            }
+            case R.id.HomeMenu:{
+                startActivity(new Intent(ProfilePasswordUpdateActivity.this,HomeActivity.class));
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    //#EndRegion
 }

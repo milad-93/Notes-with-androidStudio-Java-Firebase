@@ -26,17 +26,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         viewSetUp();
 
-        
+
         resetPw.setOnClickListener(new View.OnClickListener() { // button press
             @Override
             public void onClick(View v) {
-                String userEmail = pwEmail.getText().toString().trim(); // convert object textbox to string then trim
+                String emailUserInput = pwEmail.getText().toString().trim(); // convert object textbox to string then trim
 
-                if(userEmail.equals("")){
+                if(emailUserInput.equals("")){
                     Toast.makeText(ForgotPasswordActivity.this,"Enter your registered email", Toast.LENGTH_SHORT).show();
                 } else{
 
-                    firebaseAuth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseAuth.sendPasswordResetEmail(emailUserInput).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
@@ -44,13 +44,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 finish();
                                 startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
                             }else{
-                                Toast.makeText(ForgotPasswordActivity.this, "Error in sending email", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgotPasswordActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
-
-
             }
         });
 

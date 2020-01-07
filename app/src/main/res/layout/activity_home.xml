@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
-    android:background="#080808"
+    android:background="@color/DarkColor"
 
     tools:context=".HomeActivity">
 
@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_note_add_black_24dp"
-        app:backgroundTint="@color/AddNoteFloatBackgroundColor"
+        app:backgroundTint="@color/darkerPink"
         app:elevation="5dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

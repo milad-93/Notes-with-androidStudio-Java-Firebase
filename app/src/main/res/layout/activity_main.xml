@@ -63,21 +63,6 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/tvInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginRight="8dp"
-        android:text="No of attempts remaining:  "
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/tvRegister"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
         android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,12 +70,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="28dp"
         android:text="New User? Sign Up!"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textColor="@color/darkerPink"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.229"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
 
     <TextView
         android:id="@+id/tvForgotPassword"

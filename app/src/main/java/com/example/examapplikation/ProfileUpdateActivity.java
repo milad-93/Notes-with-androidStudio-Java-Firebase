@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -169,6 +171,40 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     }
 
+
+
+    //#Region Menu
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ProfileUpdateActivity.this,MainActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //create menu on toolbar
+        getMenuInflater().inflate(R.menu.menu,menu); //inflated inside
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) { // handle on click events on items on menu
+        switch(item.getItemId()){
+            case R.id.logoutMenu:{
+                Logout();
+                finish();
+                break;
+            }
+            case R.id.HomeMenu:{
+                startActivity(new Intent(ProfileUpdateActivity.this,HomeActivity.class));
+                finish();
+                break;
+
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    //#EndRegion
 
 
 }

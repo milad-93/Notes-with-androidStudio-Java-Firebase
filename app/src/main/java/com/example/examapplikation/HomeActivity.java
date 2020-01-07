@@ -183,7 +183,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(HomeActivity.this,MainActivity.class));
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //create menu on toolbar
         getMenuInflater().inflate(R.menu.menu,menu); //inflated inside

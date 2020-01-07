@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); // hide actionbar
         // assign to the (Widget) id defined in the xml
         viewSetUp();
-        Info.setText("Number of attemepts remaining: 3");
+    //    Info.setText("Number of attemepts remaining: 3");
 
         firebaseAuth = firebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this); // user click on log in first gonna check the function if it match requirement(if its in the database and can login)
@@ -95,13 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     emailVerification(); // checking if verification done
                 }else{
                     Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
-                    failedAttempts --; // decrease failed attemepts from 3-2-1 lock
-                    Info.setText("Wrong password: "+failedAttempts +" Attempts remaining");
                   progressDialog.dismiss(); // so it doesnt run when its failed aswell!
 
-                    if (failedAttempts== 0){
-                        Login.setEnabled(false); // reached 0 disables button
-                    }
                 }
             }
         });
@@ -130,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private void viewSetUp(){
         Name = (EditText) findViewById(R.id.etName);
         Password = (EditText) findViewById(R.id.etPassword);
-        Info = (TextView) findViewById(R.id.tvInfo);
+      //  Info = (TextView) findViewById(R.id.tvInfo);
         Login = (Button) findViewById(R.id.btnLogin);
         userRegistration = (TextView)findViewById(R.id.tvRegister);
         forgotPasword = (TextView)findViewById(R.id.tvForgotPassword);

@@ -3,8 +3,11 @@ package com.example.examapplikation;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,9 +38,7 @@ public class NoteInputActivity extends AppCompatActivity {
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-
-
-       databaseReference =  firebaseDatabase.getReference("NoteList");
+        databaseReference =  firebaseDatabase.getReference("NoteList");
 
 
 
@@ -81,10 +82,7 @@ public class NoteInputActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Fill in all fields", Toast.LENGTH_SHORT).show();
         }
-
   }
-
-
 
   private void viewSetUp(){
       titleInput = findViewById(R.id.etNoteDescripton);
@@ -92,6 +90,34 @@ public class NoteInputActivity extends AppCompatActivity {
       btn_saveNote = findViewById(R.id.btn_add_note);
 
   }
+
+    //#Region Menu
+    private void Logout(){
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(NoteInputActivity.this,MainActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //create menu on toolbar
+        getMenuInflater().inflate(R.menu.menu,menu); //inflated inside
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) { // handle on click events on items on menu
+        switch(item.getItemId()){
+            case R.id.logoutMenu:{
+                Logout();
+            }
+            case R.id.HomeMenu:{
+                startActivity(new Intent(NoteInputActivity.this,HomeActivity.class));
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    //#EndRegion
 
 }
 

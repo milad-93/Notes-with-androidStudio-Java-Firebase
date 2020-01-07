@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -45,8 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
     private static int Pick_Image = 123;
     private StorageReference storageReference; // root
     Uri UserProfileimagePath;
+    private ProgressDialog progressDialog;
 
-
+    //#Region Choose profile pic during register
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // image choose
 
@@ -63,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    //#EndRegion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         // instance of authetciator of this variable object of this main class
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+        progressDialog = new ProgressDialog(this);
 
         // storage refrence object
         storageReference = firebaseStorage.getReference();
@@ -92,14 +95,16 @@ public class RegisterActivity extends AppCompatActivity {
            }
        });
 
+        //#Region Register to firebase  here we also throw in the sendEmailVerfication fuction if task if sucsessful.
 
-        //listens to the click frmo the user we register
         regButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                  // validate if user have entered the details
-            if (validate()){
+            if (formValidation()){
+                progressDialog.setMessage("Registering, Please wait...");
+                progressDialog.show();
 
                 // upload to authenticate firebase
                 String user_email = userEmail.getText().toString().trim(); // convert to string
@@ -110,11 +115,13 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+                            progressDialog.dismiss();
                             // tell the user was sucsesfull or error thats what the addoncompleteLisener function dooes otherwise still sends
                             sendEmailVerification(); // sends to function to verification
 
                         } else{
                             Toast.makeText(RegisterActivity.this,"Registration Failed",Toast.LENGTH_SHORT);
+                            progressDialog.dismiss();
                         }
 
 
@@ -123,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             }
         });
+        //#EndRegion
 
         userLogin.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
             @Override
@@ -133,18 +141,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    //assign to the variables to the id in the xml!
-    private void viewSetUp(){
-        userName = (EditText) findViewById(R.id.etUserName);
-        userPassword = (EditText) findViewById(R.id.etUserPassword);
-        userEmail = (EditText) findViewById(R.id.etUserEmail);
-        regButton = (Button) findViewById(R.id.btnRegister);
-        userLogin = (TextView) findViewById(R.id.tvUserLogin);
-        userProfilePic=(ImageView) findViewById(R.id.ivRegister);
 
-    }
-
-    private boolean validate(){ // validates the form
+    //#Region Validates register form
+    private boolean formValidation(){ // validates the form
         Boolean result = false;
 
          name = userName.getText().toString();
@@ -153,16 +152,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(name.isEmpty() || password.isEmpty() ||  email.isEmpty() || UserProfileimagePath == null){
 
-            Toast.makeText(this,"Please fill in all the details required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please fill in all the details required, remember to also choose a profile pic!",Toast.LENGTH_SHORT).show();
         }else{
             result = true; // if true
         }
         return result;
 
     }
+    //#EndRegion
 
+    //# user cannot log in without verifying their email. here we also send in the function SendUserProfileDataToDatabase()
     private void sendEmailVerification(){ // sending email verification when registering
-
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null){
             firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -184,8 +184,10 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
     }
+    //#EndRegion
 
-    private void sendUserProfileData(){ // firebase database object and refrence uniqe id of user
+    // We also send data to Firebase database and firebase storage section. picture goes to storage section with uniqe id as the auth and the other info such ass paswsword and email goes to database.
+    private void sendUserProfileData(){
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference(firebaseAuth.getUid()); // user by id
@@ -210,5 +212,18 @@ public class RegisterActivity extends AppCompatActivity {
     // class models. userpofile construcotr
         UserProfile userProfile = new UserProfile(email,name);
         reference.setValue(userProfile);
+    }
+    //#EndRegion
+
+
+    //assign to the variables to the id in the xml!
+    private void viewSetUp(){
+        userName = (EditText) findViewById(R.id.etUserName);
+        userPassword = (EditText) findViewById(R.id.etUserPassword);
+        userEmail = (EditText) findViewById(R.id.etUserEmail);
+        regButton = (Button) findViewById(R.id.btnRegister);
+        userLogin = (TextView) findViewById(R.id.tvUserLogin);
+        userProfilePic=(ImageView) findViewById(R.id.ivRegister);
+
     }
 }
