@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
-                  //  Toast.makeText(MainActivity. this,"Login succsesful ", Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(MainActivity. this,"Login succsesful ", Toast.LENGTH_SHORT).show();;
                     emailVerification(); // checking if verification done
                 }else{
                     Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
