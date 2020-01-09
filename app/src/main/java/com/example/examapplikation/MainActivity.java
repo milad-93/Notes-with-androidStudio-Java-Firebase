@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,22 +23,20 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText Name;
-    private EditText Password;
-    private Button Login;
-    private TextView userRegistration;
+    private EditText email,password;
+    private TextView forgotPasword, userRegistration;
     private FirebaseAuth firebaseAuth;
+    private Button login;
     private ProgressDialog progressDialog;
-    private TextView forgotPasword;
+    String emailFieldValidate,passwordFieldValidate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
         getSupportActionBar().hide(); // hide actionbar
-        viewSetUp();
-
+        viewSetUp(); // check function below
         firebaseAuth = firebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this); // user click on log in first gonna check the function if it match requirement(if its in the database and can login)
 
@@ -48,17 +47,65 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this ,HomeActivity.class));
         }
 
-        //# Region on click listeners
 
-        // login
-        Login.setOnClickListener(new View.OnClickListener() { //validate
-            @Override
-            public void onClick(View v) { //button
+        ClickEvents(); // check function below
+        userLogIn(); // check function below
 
-                validate (Name.getText().toString(), Password.getText().toString());
+
+
+    }
+
+
+
+    //#UserLogin
+public void userLogIn()
+{
+    login.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(FormValidation()){
+                progressDialog.setMessage("Logging in..");
+                progressDialog.show();
+                String user_email = email.getText().toString().trim(); // convert to string
+                String user_password = password.getText().toString().trim();
+
+                firebaseAuth.signInWithEmailAndPassword(user_email,user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(MainActivity. this,"Login succsesful ", Toast.LENGTH_SHORT).show();;
+                            emailVerification(); // checking if verification done
+                        }else{
+                            Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
             }
-        });
-            // register
+        }
+    });
+}
+
+    //#EndRegion
+
+
+
+    //#Region Views
+    private void viewSetUp(){
+        email = (EditText) findViewById(R.id.editText_email);
+        password = (EditText) findViewById(R.id.editText_password);
+        userRegistration = (TextView)findViewById(R.id.txtView_register);
+        login = (Button) findViewById(R.id.btnLogin);
+        forgotPasword = (TextView)findViewById(R.id.txtView_forgot_password);
+
+    }
+    //#EndRegion
+
+    private void ClickEvents(){
+
+        // register
         userRegistration.setOnClickListener(new View.OnClickListener() { // button on main to register
             @Override
             public void onClick(View v) { //button
@@ -72,32 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ForgotPasswordActivity.class));
             }
         });
+
     }
-    //#EndRegion
-
-
-    //#Region signIn
-    private void validate (String userName, String userPassword){
-        progressDialog.setMessage("Logging in..");
-        progressDialog.show();
-
-        firebaseAuth.signInWithEmailAndPassword(userName,userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    progressDialog.dismiss();
-                    Toast.makeText(MainActivity. this,"Login succsesful ", Toast.LENGTH_SHORT).show();;
-                    emailVerification(); // checking if verification done
-                }else{
-                    Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
-                  progressDialog.dismiss();
-                }
-            }
-        });
-    }
-    //#EndRegion
-
     //#Region Check if Email verification when log in
     private void emailVerification(){ // verify email before logging in
 
@@ -105,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean accountEmail = firebaseUser.isEmailVerified();
 
         if(accountEmail){
-        finish();
+            finish();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }else {
 
@@ -115,17 +138,22 @@ public class MainActivity extends AppCompatActivity {
     }
     //#EndRegion
 
+    //#Region Error handle on form
+    private boolean FormValidation(){ // validates the form
+        Boolean result = false;
 
-    //#Region Views
-    private void viewSetUp(){
+        passwordFieldValidate = password.getText().toString();
+        emailFieldValidate = email.getText().toString();
 
-        Password = (EditText) findViewById(R.id.etPassword);
-        userRegistration = (TextView)findViewById(R.id.tvRegister);
-        Login = (Button) findViewById(R.id.btnLogin);
-        forgotPasword = (TextView)findViewById(R.id.tvForgotPassword);
-        Name = (EditText) findViewById(R.id.etName);
+        if(passwordFieldValidate.isEmpty() ||  emailFieldValidate.isEmpty()){
+
+            Toast.makeText(this,"Please fill in all the details required",Toast.LENGTH_SHORT).show();
+        }else{
+            result = true; // if true
+        }
+        return result;
 
     }
-
-    //#EndRegion
+    //#Endregion
 }
+

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity  {
 
     // assign to the (Widget) defined in the xml
     private EditText userName, userPassword, userEmail;
@@ -72,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide(); // hide actionbar
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
         viewSetUp();
 
         // instance of authetciator of this variable object of this main class
