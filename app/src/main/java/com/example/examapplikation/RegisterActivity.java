@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class RegisterActivity extends AppCompatActivity  {
 
-    // assign to the (Widget) defined in the xml
+
     private EditText userName, userPassword, userEmail;
     private Button regButton;
     private TextView userLogin;
@@ -44,12 +44,12 @@ public class RegisterActivity extends AppCompatActivity  {
     private ImageView userProfilePic;
     String email,name,password;
     private FirebaseStorage firebaseStorage;
-    private static int Pick_Image = 123;
-    private StorageReference storageReference; // root
+    private static int Pick_Image = 1;
+    private StorageReference storageReference;
     Uri UserProfileimagePath;
     private ProgressDialog progressDialog;
 
-    //#Region Choose profile pic during register
+    //#Region image convert bitmap for set profile image.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // image choose
 
@@ -76,63 +76,35 @@ public class RegisterActivity extends AppCompatActivity  {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
         viewSetUp();
 
-        // instance of authetciator of this variable object of this main class
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         progressDialog = new ProgressDialog(this);
-
         // storage refrence object
         storageReference = firebaseStorage.getReference();
          // store for every user id
 
+
+        ClickEvents();
+        RegisterUser();
+
+
+
+
+    }
+    //#click events buttons etc.
+    private void ClickEvents() {
         // when click image to set/change image
-       userProfilePic.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        userProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setType( "image/*"); //aplication/pdf // getting image
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Select image"),Pick_Image); //  CHEKCS IF SUCSESSFULL OR NOT
 
-           }
-       });
-
-        //#Region Register to firebase  here we also throw in the sendEmailVerfication fuction if task if sucsessful.
-
-        regButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                 // validate if user have entered the details
-            if (formValidation()){
-                progressDialog.setMessage("Registering, Please wait...");
-                progressDialog.show();
-
-                // upload to authenticate firebase
-                String user_email = userEmail.getText().toString().trim(); // convert to string
-                String user_password = userPassword.getText().toString().trim(); // convert to string
-
-                firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if(task.isSuccessful()){
-                            progressDialog.dismiss();
-                            // tell the user was sucsesfull or error thats what the addoncompleteLisener function dooes otherwise still sends
-                            sendEmailVerification(); // sends to function to verification
-
-                        } else{
-                            Toast.makeText(RegisterActivity.this,"Registration Failed",Toast.LENGTH_SHORT);
-                            progressDialog.dismiss();
-                        }
-
-
-                    }
-                });
-            }
             }
         });
-        //#EndRegion
+
 
         userLogin.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
             @Override
@@ -141,8 +113,48 @@ public class RegisterActivity extends AppCompatActivity  {
             }
         });
 
-    }
 
+    }
+    //#EndRegion
+
+    //#Region Register to firebase  here we also throw in the sendEmailVerfication() fuction if task if sucsessful.
+    private void RegisterUser(){
+        regButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // validate if user have entered the details
+                if (formValidation()){
+                    progressDialog.setMessage("Registering, Please wait...");
+                    progressDialog.show();
+
+                    // upload to authenticate firebase
+                    String user_email = userEmail.getText().toString().trim(); // convert to string
+                    String user_password = userPassword.getText().toString().trim(); // convert to string
+
+                    firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if(task.isSuccessful()){
+                                progressDialog.dismiss();
+                                // tell the user was sucsesfull or error thats what the addoncompleteLisener function dooes otherwise still sends
+                                sendEmailVerification(); // sends to function to verification
+
+                            } else{
+                                Toast.makeText(RegisterActivity.this,"Registration Failed",Toast.LENGTH_SHORT);
+                                progressDialog.dismiss();
+                            }
+
+
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+    //#EndRegion
 
     //#Region Validates register form
     private boolean formValidation(){ // validates the form
@@ -211,7 +223,7 @@ public class RegisterActivity extends AppCompatActivity  {
             }
         });
 
-    // class models. userpofile construcotr
+    // models. userpofile
         UserProfile userProfile = new UserProfile(email,name);
         reference.setValue(userProfile);
     }
@@ -220,14 +232,13 @@ public class RegisterActivity extends AppCompatActivity  {
 
     //assign to the variables to the id in the xml!
     private void viewSetUp(){
-        userName = (EditText) findViewById(R.id.etUserName);
-        userEmail = (EditText) findViewById(R.id.etUserEmail);
-        userPassword = (EditText) findViewById(R.id.etUserPassword);
-        userProfilePic=(ImageView) findViewById(R.id.ivRegister);
-        regButton = (Button) findViewById(R.id.btnRegister);
-        userLogin = (TextView) findViewById(R.id.tvUserLogin);
-
-
+        userName = (EditText) findViewById(R.id.EditText_userName_input);
+        userEmail = (EditText) findViewById(R.id.EditText_userEmail_input);
+        userPassword = (EditText) findViewById(R.id.EditText_userPassword_input);
+        userProfilePic=(ImageView) findViewById(R.id.ImageView_Picture_pick);
+        regButton = (Button) findViewById(R.id.btn_register_user);
+        userLogin = (TextView) findViewById(R.id.TxtView_userLogin);
 
     }
+    //#EndREgion
 }
