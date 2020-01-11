@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/register" />
+        android:src="@drawable/register" />
 
     <TextView
         android:id="@+id/tvProfileName"
@@ -29,6 +29,7 @@
         android:layout_marginStart="112dp"
         android:layout_marginLeft="112dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/edittext_round"
         android:drawableLeft="@drawable/ic_action_user"
         android:textColor="#FFFFFF"
         android:textSize="22dp"
@@ -46,7 +47,7 @@
         android:textColor="#FFFFFF"
         android:textSize="22dp"
         android:textStyle="bold"
-        android:tooltipText="hello"
+        android:background="@drawable/edittext_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.565"

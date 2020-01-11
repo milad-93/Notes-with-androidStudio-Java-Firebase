@@ -43,13 +43,13 @@ public class NoteInputActivity extends AppCompatActivity {
         btn_saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendDataToDataBase(); // calls function
+                CreateNote(); // calls function
             }
         });
 
     }
     //#Region create note
-  private void  SendDataToDataBase(){ // send to dataBase
+  private void  CreateNote(){ // send to dataBase
         final String title = titleInput.getText().toString();
         String text = textInput.getText().toString();
 
