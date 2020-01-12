@@ -26,7 +26,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         viewSetUp();
 
+        resetPassword();
 
+
+
+
+    }
+
+    private void resetPassword(){
         resetPw.setOnClickListener(new View.OnClickListener() { // button press
             @Override
             public void onClick(View v) {

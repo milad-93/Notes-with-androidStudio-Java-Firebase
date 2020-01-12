@@ -43,11 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
 
-        profilePic = (ImageView) findViewById(R.id.ivProfilePic1);
-        profileName = (TextView) findViewById(R.id.tvProfileName);
-        profileEmail = (TextView) findViewById(R.id.TvProfileEmail);
-        profileUpdate = (Button)  findViewById(R.id.btnProfileUpdate);
-        changePassword = (Button) findViewById(R.id.btnChangePassword);
+        viewSetUp();
 
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
@@ -64,10 +60,9 @@ public class ProfileActivity extends AppCompatActivity {
             public void onSuccess(Uri uri) { // retrive uri to imageView
            Picasso.get().load(uri).fit().centerCrop().into(profilePic); //retrive data using picasso plugin android studio  https://square.github.io/picasso/
                 // will always fit into the image view
-
                 //put on imageView
             }
-        }) ;
+        });
 
         // acsess database and retrive data
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -104,10 +99,16 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, ProfilePasswordUpdateActivity.class));
             }
         });
-
-
     }
 
+    private void viewSetUp(){
+        profilePic = (ImageView) findViewById(R.id.ImageView_Profile_pic1);
+        profileName = (TextView) findViewById(R.id.TextView_profile_name);
+        profileEmail = (TextView) findViewById(R.id.TextView_profile_email);
+        profileUpdate = (Button)  findViewById(R.id.btn_profile_update);
+        changePassword = (Button) findViewById(R.id.btn_change_password);
+
+    }
 
     //#Region Menu
     private void Logout(){

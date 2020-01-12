@@ -107,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity  {
             }
         });
 
-
         userLogin.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
             @Override
             public void onClick(View v) {
@@ -126,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 // validate if user have entered the details
-                if (formValidation()){
+                if (FormValidation()){
                     progressDialog.setMessage("Registering, Please wait...");
                     progressDialog.show();
 
@@ -158,14 +157,13 @@ public class RegisterActivity extends AppCompatActivity  {
     }
     //#EndRegion
 
-
     //#Region Validates register form
-    private boolean formValidation(){ // validates the form
+    private boolean FormValidation(){ // validates the form
         Boolean result = false;
 
-         name = userName.getText().toString();
-         password = userPassword.getText().toString();
-         email = userEmail.getText().toString();
+        name = userName.getText().toString();
+        password = userPassword.getText().toString();
+        email = userEmail.getText().toString();
 
         if(name.isEmpty() || password.isEmpty() ||  email.isEmpty() || UserProfileimagePath == null){
 
@@ -174,7 +172,6 @@ public class RegisterActivity extends AppCompatActivity  {
             result = true; // if true
         }
         return result;
-
     }
     //#EndRegion
 
