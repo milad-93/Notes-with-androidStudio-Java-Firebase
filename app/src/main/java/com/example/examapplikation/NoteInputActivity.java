@@ -11,23 +11,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.examapplikation.Models.NotesList;
+import com.example.examapplikation.Models.UserProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 public class NoteInputActivity extends AppCompatActivity {
 
     private EditText titleInput, textInput;
     private Button btn_saveNote;
+    private TextView SignedInUser;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    DatabaseReference loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,8 @@ public class NoteInputActivity extends AppCompatActivity {
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference =  firebaseDatabase.getReference("NoteList");
+        databaseReference =  firebaseDatabase.getReference("NoteList"); // put note
+        loggedInUser = firebaseDatabase.getReference(firebaseAuth.getUid());// read user
 
         btn_saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +55,31 @@ public class NoteInputActivity extends AppCompatActivity {
             }
         });
 
+
+        CurrentLoggedInUser();
     }
+//#Region displayLoggedInUser
+    public void CurrentLoggedInUser(){
+        loggedInUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Userprofile does not refer to this class of this activity but to the Constructor made in the class of Userprofile)
+                // object of the class userprofile
+                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+                SignedInUser.setText("Signed in as: " +userProfile.getUserEmail());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { // if database error
+                Toast.makeText(NoteInputActivity.this,databaseError.getCode(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+    //#EndRegion
+
     //#Region create note
   private void  CreateNote(){ // send to dataBase
         final String title = titleInput.getText().toString();
@@ -56,8 +88,6 @@ public class NoteInputActivity extends AppCompatActivity {
         if(!TextUtils.isEmpty(title)&& !TextUtils.isEmpty(text)){
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference reference = firebaseDatabase.getReference(firebaseAuth.getUid());
-
-
             NotesList NewNoteToDataBase = new NotesList(title,text); // object of class Todolist in models
 
             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).push().setValue(NewNoteToDataBase).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -83,11 +113,15 @@ public class NoteInputActivity extends AppCompatActivity {
   }
     //#endRegion
 
+    //#Region setting views
   private void viewSetUp(){
-      titleInput = findViewById(R.id.etNoteDescripton);
-      textInput= findViewById(R.id.etNoteText);
+      titleInput = findViewById(R.id.EditText_note_descripton);
+      textInput= findViewById(R.id.EditText_note_text);
       btn_saveNote = findViewById(R.id.btn_add_note);
+      SignedInUser = findViewById(R.id.TextView_current_user);
+
   }
+  //#Endregion
     //#Region Menu
     private void Logout(){
         firebaseAuth.signOut();

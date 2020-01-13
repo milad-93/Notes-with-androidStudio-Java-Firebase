@@ -72,13 +72,9 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
-
         // initiate
         viewSetUp();
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -91,8 +87,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Userprofile does not refer to this class of this activity but to the Constructor made in the class of Userprofile)
-                // object of the class userprofile
+                //models.userprofile
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
 
                 newUserName.setText(userProfile.getUserName());
@@ -166,10 +161,10 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     }
 
     public void viewSetUp(){
-        newUserName = findViewById(R.id.etNameUpdate);
-        newUserEmail= findViewById(R.id.etEmailUpdate);
-        ChangeProfilePic = findViewById(R.id.ivEditProfilePic);
-        updatedProfileSave = findViewById(R.id.btnProfileUpdateSave);
+        newUserName = findViewById(R.id.EditText_name_update);
+        newUserEmail= findViewById(R.id.EditText_email_update);
+        ChangeProfilePic = findViewById(R.id.ImageView_change_picture);
+        updatedProfileSave = findViewById(R.id.btn_profile_update_changes);
 
     }
 

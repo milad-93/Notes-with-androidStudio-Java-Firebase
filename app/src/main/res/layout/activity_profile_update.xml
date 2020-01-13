@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,59 +7,71 @@
     android:background="@drawable/gradient"
     tools:context=".ProfileUpdateActivity">
 
+    <TextView
+        android:id="@+id/TextView_Edit_profile_Text"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="Edit Profile"
+        android:textColor="@color/WhiteColor"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:textStyle="bold"/>
+
+
+    <ImageView
+        android:id="@+id/ImageView_change_picture"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/register"
+        android:layout_below="@+id/TextView_Edit_profile_Text"/>
+
+
     <EditText
-        android:id="@+id/etNameUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="392dp"
+        android:id="@+id/EditText_name_update"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/edittext_round"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/ic_action_user"
-        android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         android:text="Name"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:textColor="@color/WhiteColor"
+        android:layout_below="@+id/ImageView_change_picture"
+        />
 
     <EditText
-        android:id="@+id/etEmailUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:id="@+id/EditText_email_update"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:hint="Email"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:textSize="22sp"
+        android:background="@drawable/edittext_round"
+        android:textColor="@color/WhiteColor"
+        android:textColorHint="@color/WhiteColor"
         android:drawableLeft="@drawable/ic_action_email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNameUpdate"
-        app:layout_constraintVertical_bias="0.09" />
+        android:layout_below="@+id/EditText_name_update"
+       />
 
     <Button
-        android:id="@+id/btnProfileUpdateSave"
-        android:layout_width="286dp"
-        android:layout_height="54dp"
+        android:id="@+id/btn_profile_update_changes"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="90dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/buttonmodel"
         android:text="Save profile changes"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmailUpdate" />
+        android:textColor="@color/WhiteColor"
+        android:layout_below="@+id/EditText_email_update" />
 
-    <ImageView
-        android:id="@+id/ivEditProfilePic"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/etNameUpdate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/register" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

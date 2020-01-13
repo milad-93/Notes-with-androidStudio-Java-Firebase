@@ -14,9 +14,31 @@
         android:layout_height="match_parent">
 
 
+        <TextView
+            android:id="@+id/TextView_current_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:padding="4dp"
+          />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:alpha=".3"
+            android:background="@android:color/black" />
+
+
 
         <EditText
-            android:id="@+id/etNoteDescripton"
+            android:id="@+id/EditText_note_descripton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -34,7 +56,7 @@
             android:background="@android:color/black" />
 
         <EditText
-            android:id="@+id/etNoteText"
+            android:id="@+id/EditText_note_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

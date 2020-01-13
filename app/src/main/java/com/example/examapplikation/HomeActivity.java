@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-// this activity is where u can insert and read data
+
 
 public class HomeActivity extends AppCompatActivity {
 // https://stackoverflow.com/questions/59522610/reading-data-from-firebase-no-setter-field-errors-firebase?noredirect=1#comment105218295_59522610

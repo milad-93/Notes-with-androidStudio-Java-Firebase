@@ -14,19 +14,14 @@ public  class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public NoteViewHolder(@NonNull View itemView){
 
         super (itemView);
-
         text_title = itemView.findViewById(R.id.text_title);
         text_content = itemView.findViewById(R.id.text_content);
-
         itemView.setOnCreateContextMenuListener(this); // context to this view
-
 
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) { // on clik update delete on every object
-
-   // menu.setHeaderTitle("Select desired option");
     menu.add(0,0,getAdapterPosition(),"Edit Note");
     menu.add(0,0,getAdapterPosition(),"Delete Note");
 

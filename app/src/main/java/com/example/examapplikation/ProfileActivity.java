@@ -35,7 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
-
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +45,39 @@ public class ProfileActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
 
         viewSetUp();
-
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-
         // refrence of database we pull data from retrive data from user id
-        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+         databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
         // storage refrence
-        StorageReference storageReference = firebaseStorage.getReference(); // root storage
+         storageReference = firebaseStorage.getReference(); // root storage
 
+        displayUserData();
+
+        // goes to profile update page
+        profileUpdate.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, ProfileUpdateActivity.class));
+            }
+        });
+
+        // goes to change password page
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, ProfilePasswordUpdateActivity.class));
+            }
+        });
+    }
+     //#region display userData
+    private void displayUserData(){
         storageReference.child (firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() { // exact path to image stored
             @Override
             public void onSuccess(Uri uri) { // retrive uri to imageView
-           Picasso.get().load(uri).fit().centerCrop().into(profilePic); //retrive data using picasso plugin android studio  https://square.github.io/picasso/
+                Picasso.get().load(uri).fit().centerCrop().into(profilePic); //retrive data using picasso plugin android studio  https://square.github.io/picasso/
                 // will always fit into the image view
                 //put on imageView
             }
@@ -82,31 +101,16 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
-        // goes to profile update page
-        profileUpdate.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, ProfileUpdateActivity.class));
-            }
-        });
-
-        // goes to change password page
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, ProfilePasswordUpdateActivity.class));
-            }
-        });
+        //#EndRegion
     }
-
+    //#region views
     private void viewSetUp(){
         profilePic = (ImageView) findViewById(R.id.ImageView_Profile_pic1);
         profileName = (TextView) findViewById(R.id.TextView_profile_name);
         profileEmail = (TextView) findViewById(R.id.TextView_profile_email);
         profileUpdate = (Button)  findViewById(R.id.btn_profile_update);
         changePassword = (Button) findViewById(R.id.btn_change_password);
+        //#Endregion
 
     }
 
