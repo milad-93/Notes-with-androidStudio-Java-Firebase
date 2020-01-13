@@ -55,7 +55,6 @@ public class NoteInputActivity extends AppCompatActivity {
             }
         });
 
-
         CurrentLoggedInUser();
     }
 //#Region displayLoggedInUser
@@ -119,9 +118,9 @@ public class NoteInputActivity extends AppCompatActivity {
       textInput= findViewById(R.id.EditText_note_text);
       btn_saveNote = findViewById(R.id.btn_add_note);
       SignedInUser = findViewById(R.id.TextView_current_user);
-
   }
   //#Endregion
+
     //#Region Menu
     private void Logout(){
         firebaseAuth.signOut();

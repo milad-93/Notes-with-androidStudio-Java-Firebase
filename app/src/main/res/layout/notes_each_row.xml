@@ -8,38 +8,35 @@
     app:cardUseCompatPadding="true">
 
 
-    <LinearLayout
-        android:background="@color/LightPink"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+    <RelativeLayout
 
-        android:padding="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
 
         <ImageView
             android:id="@+id/random"
-            android:layout_width="45dp"
-            android:layout_height="37dp"
-
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:src="@drawable/note" />
-
 
         <TextView
             android:id="@+id/text_title"
-            android:background="@color/LightPink"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/DarkColor"
             android:text="Title"
-            style="@style/TextAppearance.AppCompat.Headline"/>
+            android:layout_toRightOf="@+id/random"
+            android:layout_toEndOf="@+id/random"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"/>
 
 
-        <View
-            android:layout_marginTop="5dp"
-            android:id="@+id/fillView"
-            android:layout_width="fill_parent"
-            android:layout_height="3dp"
-            android:background="#c0c0c0"/>
+
 
 
 
@@ -47,17 +44,23 @@
 
         <TextView
             android:id="@+id/text_content"
-            android:text="content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Body1"/>
+            android:text="content"
+            android:textSize="18sp"
+            android:textColor="@color/DarkColor"
+            android:layout_toRightOf="@+id/random"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/text_title"/>
 
 
 
 
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
