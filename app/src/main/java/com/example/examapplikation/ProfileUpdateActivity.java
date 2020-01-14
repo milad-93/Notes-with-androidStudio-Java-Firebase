@@ -71,7 +71,8 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        this.setTitle("-Edit Profile-");// no rotation activated
         // initiate
         viewSetUp();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

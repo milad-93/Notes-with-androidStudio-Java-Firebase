@@ -26,11 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class NoteInputActivity extends AppCompatActivity {
 
     private EditText titleInput, textInput;
     private Button btn_saveNote;
-    private TextView SignedInUser;
+    private TextView SignedInUser,timeandDate;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -40,8 +43,10 @@ public class NoteInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_input);
-        viewSetUp();
+        this.setTitle("-Create note-");
 
+        viewSetUp();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -56,8 +61,15 @@ public class NoteInputActivity extends AppCompatActivity {
         });
 
         CurrentLoggedInUser();
+        getCurrentTimeAndDate();
     }
-//#Region displayLoggedInUser
+
+
+
+
+
+
+//#Region displayLoggedInUser  //https://www.youtube.com/watch?v=_ZbM6b5SEw0&t=95s
     public void CurrentLoggedInUser(){
         loggedInUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,11 +95,12 @@ public class NoteInputActivity extends AppCompatActivity {
   private void  CreateNote(){ // send to dataBase
         final String title = titleInput.getText().toString();
         String text = textInput.getText().toString();
+        String time = timeandDate.getText().toString();
 
         if(!TextUtils.isEmpty(title)&& !TextUtils.isEmpty(text)){
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference reference = firebaseDatabase.getReference(firebaseAuth.getUid());
-            NotesList NewNoteToDataBase = new NotesList(title,text); // object of class Todolist in models
+            NotesList NewNoteToDataBase = new NotesList(title,text,time); // object of class Todolist in models
 
             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).push().setValue(NewNoteToDataBase).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -95,7 +108,9 @@ public class NoteInputActivity extends AppCompatActivity {
                     Toast.makeText(NoteInputActivity.this, "note added", Toast.LENGTH_SHORT).show();
                     titleInput.setText("");
                     textInput.setText("");
+                    timeandDate.setText("");
                     finish();
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -112,12 +127,21 @@ public class NoteInputActivity extends AppCompatActivity {
   }
     //#endRegion
 
+    private void getCurrentTimeAndDate(){
+        Calendar calender = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
+        String dateTime= simpleDateFormat.format(calender.getTime());
+        timeandDate.setText(dateTime);
+
+    }
+
     //#Region setting views
   private void viewSetUp(){
       titleInput = findViewById(R.id.EditText_note_descripton);
       textInput= findViewById(R.id.EditText_note_text);
       btn_saveNote = findViewById(R.id.btn_add_note);
       SignedInUser = findViewById(R.id.TextView_current_user);
+      timeandDate = findViewById(R.id.TextView_time_date);
   }
   //#Endregion
 
@@ -142,6 +166,7 @@ public class NoteInputActivity extends AppCompatActivity {
             }
             case R.id.HomeMenu:{
                 startActivity(new Intent(NoteInputActivity.this,HomeActivity.class));
+                finish();
             }
         }
 

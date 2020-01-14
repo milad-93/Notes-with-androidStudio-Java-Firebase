@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
+        this.setTitle("-Profile information-");
 
         viewSetUp();
         // instance
@@ -137,7 +138,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
             case R.id.HomeMenu:{
                 startActivity(new Intent(ProfileActivity.this,HomeActivity.class));
-                finish();
                 finish();
                 break;
 

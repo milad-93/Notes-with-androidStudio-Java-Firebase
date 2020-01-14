@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 
 import com.example.examapplikation.Models.NotesList;
-import com.example.examapplikation.Models.UserProfile;
 import com.example.examapplikation.ViewHolder.NoteViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -47,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home);
+        this.setTitle("Home - View notes");
 
             //iniate
             viewSetUp();
@@ -68,8 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    //Region -used for edit and delete this section start reads whats in the post and open ups a window on the same window based on the  Viewholder and a xml file called custom_layout
-     // recycler view in this section and only the verifed logged in user can See his own data!
+    //Region -used for edit and delete this section start reads whats in the post and open ups a window on the same window based on the  Viewholder and a xml file called note_options
     @Override
     protected void onStart() {
         super.onStart();
@@ -86,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) { // viewholder
 
        if (item.getTitle().equals("Edit Note")){
-           showUpdateDialog(adapter.getRef(item.getOrder()).getKey(),adapter.getItem(item.getOrder()));
+           clickUpdateMenu(adapter.getRef(item.getOrder()).getKey(),adapter.getItem(item.getOrder()));
        } else if (item.getTitle().equals("Delete Note")){
            deleteNote(adapter.getRef(item.getOrder()).getKey());
        }
@@ -99,15 +98,16 @@ public class HomeActivity extends AppCompatActivity {
         notesDb.child(adapter).removeValue();
     }
 
-    private void showUpdateDialog(final String key, NotesList item) {
+    private void clickUpdateMenu(final String key, NotesList item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("[ Note Edit Mode]");
-        builder.setMessage("Please update the desired fields");
 
-        View update_layout = LayoutInflater.from(this).inflate(R.layout.custom_layout,null); // view model layou
+
+        View update_layout = LayoutInflater.from(this).inflate(R.layout.note_options,null); // view model layou
 
         final EditText changed_title = update_layout.findViewById(R.id.edit_update_title);
         final EditText changed_content = update_layout.findViewById(R.id.edit_update_text);
+        final EditText changed_time = update_layout.findViewById(R.id.edit_time);
 
         changed_title.setText(item.getTitle()); // get value to new
         changed_content.setText(item.getText());
@@ -118,8 +118,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 String title = changed_title.getText().toString();
                 String content = changed_content.getText().toString();
+                String time  =  changed_time.getText().toString();
 
-                NotesList notesList = new NotesList(title,content);
+                NotesList notesList = new NotesList(title,content,time);
                 notesDb.child(key).setValue(notesList);
 
                 Toast.makeText(HomeActivity.this,"Note Updated", Toast.LENGTH_SHORT).show();
@@ -136,6 +137,7 @@ public class HomeActivity extends AppCompatActivity {
             builder.show();
     }
     //# EndRegion
+
 
     // Region to read data from dataBase using  Viewholder and model Notes and  a xml file called note_each_row + the home xml file.
     private void showEachRow(){ // recycler view

@@ -25,6 +25,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         viewSetUp();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         resetPassword();
 
@@ -32,7 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
     }
-
+   //#Region resetPassword
     private void resetPassword(){
         resetPw.setOnClickListener(new View.OnClickListener() { // button press
             @Override
@@ -59,12 +60,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-    }
+    } //#Endregion
+
+    //#Region views
 
     private void viewSetUp(){
-        pwEmail= (EditText)findViewById(R.id.etPasswordEmail); //assign
-        resetPw= (Button) findViewById(R.id.btnPasswordReset);
+        pwEmail= (EditText)findViewById(R.id.EditText_password_email); //assign
+        resetPw= (Button) findViewById(R.id.btn_reset_password);
         firebaseAuth= FirebaseAuth.getInstance(); // instace of main class
 
     }
+
+    //#Endreigon
 }

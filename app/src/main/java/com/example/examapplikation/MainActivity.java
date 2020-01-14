@@ -75,10 +75,10 @@ public void userLogIn()
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
-                            Toast.makeText(MainActivity. this,"Login succsesful ", Toast.LENGTH_SHORT).show();;
+                            Toast.makeText(MainActivity. this,"Welcome back.. ", Toast.LENGTH_LONG).show();;
                             emailVerification(); // checking if verification done
                         }else{
-                            Toast.makeText(MainActivity. this,"Login failed", Toast.LENGTH_SHORT).show();;
+                            Toast.makeText(MainActivity. this,"Password does not match this account", Toast.LENGTH_LONG).show();;
                             progressDialog.dismiss();
                         }
                     }

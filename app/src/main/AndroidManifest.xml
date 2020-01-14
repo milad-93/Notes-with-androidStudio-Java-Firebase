@@ -12,7 +12,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NoteInputActivity"></activity>
+        <activity android:name=".NoteInputActivity"
+            android:parentActivityName=".HomeActivity"/>
+
+
         <activity android:name=".MySplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfilePasswordUpdateActivity" />
-        <activity android:name=".ProfileUpdateActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".ProfilePasswordUpdateActivity" android:parentActivityName=".ProfileActivity"/>
+        <activity android:name=".ProfileUpdateActivity" android:parentActivityName=".ProfileActivity"/>
+        <activity android:name=".ProfileActivity" android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".ForgotPasswordActivity" android:parentActivityName=".MainActivity"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">

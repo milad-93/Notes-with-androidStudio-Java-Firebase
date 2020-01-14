@@ -32,8 +32,10 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_password_update);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
+        this.setTitle("-Change Password-");
 
         viewSetUp();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); // current inlogged user
 
         updatePasswprd.setOnClickListener(new View.OnClickListener() {
