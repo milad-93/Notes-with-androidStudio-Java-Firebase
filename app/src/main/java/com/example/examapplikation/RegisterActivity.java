@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -124,6 +125,9 @@ public class RegisterActivity extends AppCompatActivity  {
 
             @Override
             public void onClick(View v) {
+                MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd); //Sound
+                buttonSound.start();
+
                 // validate if user have entered the details
                 if (FormValidation()){
                     progressDialog.setMessage("Registering, Please wait...");

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -93,6 +94,8 @@ public class NoteInputActivity extends AppCompatActivity {
 
     //#Region create note
   private void  CreateNote(){ // send to dataBase
+      MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd);
+      buttonSound.start(); //butt
         final String title = titleInput.getText().toString();
         String text = textInput.getText().toString();
         String time = timeandDate.getText().toString();

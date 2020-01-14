@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,7 +45,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
         this.setTitle("-Profile information-");
-
         viewSetUp();
         // instance
         firebaseAuth = FirebaseAuth.getInstance();
@@ -55,12 +55,16 @@ public class ProfileActivity extends AppCompatActivity {
         // storage refrence
          storageReference = firebaseStorage.getReference(); // root storage
 
+      final MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd);
+
+
         displayUserData();
 
         // goes to profile update page
         profileUpdate.setOnClickListener(new View.OnClickListener() { // if u wanna log in and u have an account
             @Override
             public void onClick(View v) {
+                buttonSound.start();
                 startActivity(new Intent(ProfileActivity.this, ProfileUpdateActivity.class));
             }
         });
@@ -69,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound.start();
                 startActivity(new Intent(ProfileActivity.this, ProfilePasswordUpdateActivity.class));
             }
         });

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button resetPw;
     private FirebaseAuth firebaseAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +32,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         resetPassword();
 
 
-
-
     }
    //#Region resetPassword
     private void resetPassword(){
         resetPw.setOnClickListener(new View.OnClickListener() { // button press
             @Override
             public void onClick(View v) {
+                MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd);
+                buttonSound.start();
+
                 String emailUserInput = pwEmail.getText().toString().trim(); // convert object textbox to string then trim
 
                 if(emailUserInput.equals("")){
@@ -68,6 +71,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         pwEmail= (EditText)findViewById(R.id.EditText_password_email); //assign
         resetPw= (Button) findViewById(R.id.btn_reset_password);
         firebaseAuth= FirebaseAuth.getInstance(); // instace of main class
+
 
     }
 

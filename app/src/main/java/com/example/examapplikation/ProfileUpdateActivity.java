@@ -42,30 +42,15 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
-
-
+    private String newName, newEmail;
+    private DatabaseReference databaseReference;
 
     private static int choose_profile_image = 123;
     private StorageReference storageReference; // root
     Uri UserProfileimagePath;
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // image choose
 
-        if(requestCode == choose_profile_image && resultCode == RESULT_OK && data.getData() !=null){
-            UserProfileimagePath = data.getData();
-            try{
-                //convert to process
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),UserProfileimagePath); // convert image into bitmap
-                ChangeProfilePic.setImageBitmap(bitmap);
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +67,20 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         // refrence of database we pull data from retrive data from user id
-        final DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+        databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid()); // userinfo
+        storageReference = firebaseStorage.getReference();  // userpic
 
-        // acsess database and retrive data
+
+        readFromDatabase(); // read data
+
+        SendNewInfoToDatabase(); // send to database
+
+    }
+
+    //#Region ReadDataToChange
+    public void readFromDatabase(){
+
+        //#Region read userdata
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,12 +94,8 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { // if database error
                 Toast.makeText(ProfileUpdateActivity.this,databaseError.getCode(),Toast.LENGTH_SHORT).show();
-
             }
         });
-
-       final  StorageReference storageReference = firebaseStorage.getReference(); // root storage // change image
-
         storageReference.child (firebaseAuth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() { // exact path to image stored
             @Override
             public void onSuccess(Uri uri) { // retrive uri to imageView
@@ -114,41 +106,13 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             }
         }) ;
 
-        updatedProfileSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // retrive
-                String name = newUserName.getText().toString();
-                String email = newUserEmail.getText().toString();
-                // create userProfile object
-                UserProfile userProfile = new UserProfile(email,name); // om värden kstas om kolla detta kanske error
+        //#Endregion
+    }
 
-                databaseReference.setValue(userProfile); // updating in inque user id
+    //#Endregoin
 
-            // storage upload to edit pic
-                StorageReference picReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic"); //attaching child to main parent // creating a folder for every user with individual storage
-                UploadTask uploadTask = picReference.putFile(UserProfileimagePath);
-
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileUpdateActivity.this,"Upload failed",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(ProfileUpdateActivity.this,"Upload sucsessfull",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                finish(); // back to last activity profile activity
-
-            }
-        });
-
+    //#Region sendNewUSerInfoToDatabase
+    private void SendNewInfoToDatabase(){
         ChangeProfilePic.setOnClickListener(new View.OnClickListener() {// makes the image clickable to change the image.(choose the aavailable image)
 
             public void onClick(View v) {
@@ -159,8 +123,82 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             }
         });
 
+        //#send to database
+        updatedProfileSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(FormValidation()){
+                    // retrive
+                    String name = newUserName.getText().toString();
+                    String email = newUserEmail.getText().toString();
+                    // create userProfile object
+                    UserProfile userProfile = new UserProfile(email,name); // om värden kstas om kolla detta kanske error
+                    databaseReference.setValue(userProfile); // updating in inque user id
+
+                    // storage upload to edit pic
+                    StorageReference picReference = storageReference.child(firebaseAuth.getUid()).child("Images").child("Profile Pic"); //attaching child to main parent // creating a folder for every user with individual storage
+                    UploadTask uploadTask = picReference.putFile(UserProfileimagePath);
+
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileUpdateActivity.this,"Upload failed",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(ProfileUpdateActivity.this,"Upload sucsessfull",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    finish(); // back to last activity profile activity
+                }
+            }
+        });
+        //#Endregion
+
     }
 
+    //#Region Validates form from errors if
+    private boolean FormValidation(){ // validates the form
+        Boolean result = false;
+
+        newName = newUserName.getText().toString();
+
+        newEmail = newUserEmail.getText().toString();
+
+        if(newName.isEmpty() ||  newEmail.isEmpty() || UserProfileimagePath == null){
+
+            Toast.makeText(this,"Please fill in all the details required, remember to also choose a profile pic!",Toast.LENGTH_SHORT).show();
+        }else{
+            result = true; // if true
+        }
+        return result;
+    }
+    //#EndRegion
+
+    //#Region to map and read oonvert the profile image into the view from database
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // image choose
+
+        if(requestCode == choose_profile_image && resultCode == RESULT_OK && data.getData() !=null){
+            UserProfileimagePath = data.getData();
+            try{
+                //convert to process
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),UserProfileimagePath); // convert image into bitmap
+                ChangeProfilePic.setImageBitmap(bitmap);
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }//#Endregion
+
+    //#setupViews
     public void viewSetUp(){
         newUserName = findViewById(R.id.EditText_name_update);
         newUserEmail= findViewById(R.id.EditText_email_update);
@@ -168,9 +206,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         updatedProfileSave = findViewById(R.id.btn_profile_update_changes);
 
     }
-
-
-
+    //#EndRegion
     //#Region Menu
     private void Logout(){
         firebaseAuth.signOut();

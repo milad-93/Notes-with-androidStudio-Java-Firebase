@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = firebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this); // user click on log in first gonna check the function if it match requirement(if its in the database and can login)
 
+
         // check user already logged in the app or not in database then we direct them to second activity dont ask them to log in again
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
@@ -63,6 +65,8 @@ public void userLogIn()
     login.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd); //Sound
+            buttonSound.start();
             if(FormValidation()){
                 progressDialog.setMessage("Logging in..");
                 progressDialog.show();

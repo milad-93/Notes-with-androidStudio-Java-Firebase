@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,8 +47,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home);
-        this.setTitle("Home - View notes");
-
+            this.setTitle("Home - View notes");
+            final MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd);
             //iniate
             viewSetUp();
 
@@ -57,10 +58,14 @@ public class HomeActivity extends AppCompatActivity {
             recyclerView.setLayoutManager( new LinearLayoutManager(this) );
             showEachRow(); // call function
 
+        // delete sound on note
+
+
             // buton to add note
             addNotePageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                   buttonSound.start();
                     Intent intent = new Intent(HomeActivity.this, NoteInputActivity.class);
                     startActivity(intent);
                 }
@@ -94,7 +99,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void deleteNote(String adapter) { // delete
-
+        MediaPlayer deleteSound = MediaPlayer.create(getApplicationContext(),R.raw.delete);// delete sound on note
+        deleteSound.start();
         notesDb.child(adapter).removeValue();
     }
 

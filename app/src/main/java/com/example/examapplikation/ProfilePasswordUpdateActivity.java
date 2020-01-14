@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_password_update);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // no rotation activated
         this.setTitle("-Change Password-");
+        final MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd); //Sound
 
         viewSetUp();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -41,6 +43,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         updatePasswprd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound.start();
                 changePassword();
             }
         });
@@ -104,6 +107,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
             }
             case R.id.HomeMenu:{
                 startActivity(new Intent(ProfilePasswordUpdateActivity.this,HomeActivity.class));
+                break;
             }
         }
 
