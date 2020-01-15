@@ -53,25 +53,31 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
 
 
     public void changePassword(){
-        userPasswordNew = newPassword.getText().toString(); // get pw
-        userPassword2New = newPassword2.getText().toString();
+        String userPasswordNew = newPassword.getText().toString(); // get pw
+        String userPassword2New = newPassword2.getText().toString();
 
         if (userPasswordNew.equals(userPassword2New)){
 
-            firebaseUser.updatePassword(userPasswordNew).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(ProfilePasswordUpdateActivity.this,"Password changed",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(ProfilePasswordUpdateActivity.this,"Something went wrong, password did not get changed",Toast.LENGTH_LONG).show();
+            if(userPasswordNew.equals("") || userPassword2New.equals("")){
+                Toast.makeText(ProfilePasswordUpdateActivity.this,"Fields can not be empty", Toast.LENGTH_SHORT).show();
+            }
+
+            else {
+                firebaseUser.updatePassword(userPasswordNew).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(ProfilePasswordUpdateActivity.this,"Password changed",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(ProfilePasswordUpdateActivity.this,"Something went wrong, password did not get changed",Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
+                });
+            }
+
         }
         else{
-
             Toast.makeText(ProfilePasswordUpdateActivity.this,"Both fields much match in order to change password",Toast.LENGTH_LONG).show();
         }
 

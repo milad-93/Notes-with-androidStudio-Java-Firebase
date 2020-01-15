@@ -117,7 +117,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setType( "image/*"); //aplication/pdf // getting image
+                intent.setType( "image/*");  // getting image
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Select image"),choose_profile_image); //  CHEKCS IF SUCSESSFULL OR NOT
             }
