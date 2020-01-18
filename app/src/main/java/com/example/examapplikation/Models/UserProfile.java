@@ -7,8 +7,8 @@ public class UserProfile {
 
 
 
-    public UserProfile(){ // default constructur
-        // function overloading
+    public UserProfile(){
+
     }
 
     public UserProfile(String userEmail, String userName){ // constructur assigns values

@@ -31,8 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class HomeActivity extends AppCompatActivity {
-// https://stackoverflow.com/questions/59522610/reading-data-from-firebase-no-setter-field-errors-firebase?noredirect=1#comment105218295_59522610
-// my own post i posted on stack overFlow for help with the uniqe id
 
 
     private RecyclerView recyclerView; //https://camposha.info/android-firebase-realtime-database-with-recyclerview/
@@ -51,14 +49,12 @@ public class HomeActivity extends AppCompatActivity {
             final MediaPlayer buttonSound = MediaPlayer.create(getApplicationContext(),R.raw.buttonsoumd);
             //iniate
             viewSetUp();
-
             // refrense
             notesDb = database.getReference("NoteList").child(firebaseAuth.getCurrentUser().getUid());
+            // set view
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager( new LinearLayoutManager(this) );
             showEachRow(); // call function
-
-        // delete sound on note
 
 
             // buton to add note
@@ -176,7 +172,7 @@ public class HomeActivity extends AppCompatActivity {
 
 //#start region initate to xml
     private void viewSetUp(){
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);// activity_home.xml
         addNotePageButton = findViewById(R.id.fab_button_addPage);
         firebaseAuth = FirebaseAuth.getInstance(); // get inSTACE
         database = FirebaseDatabase.getInstance();

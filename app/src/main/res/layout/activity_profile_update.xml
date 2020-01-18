@@ -70,7 +70,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/buttonmodel"
         android:text="Save profile changes"
-        android:textColor="@color/WhiteColor"
+        android:textColor="@color/DarkColor"
         android:layout_below="@+id/EditText_email_update" />
 
 

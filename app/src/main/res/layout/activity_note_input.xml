@@ -80,7 +80,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner"
             android:text="Create Note"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/DarkColor"/>
+
 
     </LinearLayout>
 

@@ -52,7 +52,7 @@
         android:background="@drawable/buttonmodel"
         android:text="Edit Profile Info"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/WhiteColor"
+        android:textColor="@color/DarkColor"
         android:layout_below="@+id/TextView_profile_email"
         />
 
@@ -63,7 +63,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/buttonmodel"
         android:text="Change password"
-        android:textColor="@color/WhiteColor"
+        android:textColor="@color/DarkColor"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_profile_update"
      />

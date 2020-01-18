@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        ClickEvents(); // check function below
-        userLogIn(); // check function below
+        ClickEvents(); // call function
+        userLogIn(); // call function
 
 
 

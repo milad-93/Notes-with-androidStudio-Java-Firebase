@@ -109,6 +109,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
         //#EndRegion
     }
+
+
+
     //#region views
     private void viewSetUp(){
         profilePic = (ImageView) findViewById(R.id.ImageView_Profile_pic1);

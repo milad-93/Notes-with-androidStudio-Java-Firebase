@@ -71,6 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:text="Register"
+        android:textColor="@color/DarkColor"
         android:layout_below="@+id/EditText_userPassword_input"
          />
 

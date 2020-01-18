@@ -51,7 +51,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
 
     }
 
-
+//#Regiion validate form and change password
     public void changePassword(){
         String userPasswordNew = newPassword.getText().toString(); // get pw
         String userPassword2New = newPassword2.getText().toString();
@@ -83,6 +83,9 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
 
     }
 
+    //#EndRegion
+
+    //#Region Views
     public void viewSetUp(){
 
         updatePasswprd = findViewById(R.id.btnUpdate_Password);
@@ -90,7 +93,7 @@ public class ProfilePasswordUpdateActivity extends AppCompatActivity {
         newPassword2 = findViewById(R.id.EditText_new_password2);
 
     }
-
+    //#Endregion
 
     //#Region Menu
     private void Logout(){

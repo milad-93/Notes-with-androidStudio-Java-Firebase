@@ -44,7 +44,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private String newName, newEmail;
     private DatabaseReference databaseReference;
-
     private static int choose_profile_image = 123;
     private StorageReference storageReference; // root
     Uri UserProfileimagePath;
@@ -100,7 +99,6 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) { // retrive uri to imageView
                 Picasso.get().load(uri).fit().centerCrop().into(ChangeProfilePic); //retrive data using picasso plugin android studio  https://square.github.io/picasso/
-                // will always fit into the image view
 
                 //put on imageView
             }

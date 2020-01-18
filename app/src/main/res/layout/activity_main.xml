@@ -61,6 +61,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_corner"
         android:text="Login"
+        android:textColor="@color/DarkColor"
         android:layout_below="@+id/editText_password"
         />
 

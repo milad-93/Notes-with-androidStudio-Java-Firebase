@@ -70,7 +70,7 @@ public class NoteInputActivity extends AppCompatActivity {
 
 
 
-//#Region displayLoggedInUser  //https://www.youtube.com/watch?v=_ZbM6b5SEw0&t=95s
+//#Region displayLoggedInUser
     public void CurrentLoggedInUser(){
         loggedInUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,7 +103,7 @@ public class NoteInputActivity extends AppCompatActivity {
         if(!TextUtils.isEmpty(title)&& !TextUtils.isEmpty(text)){
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference reference = firebaseDatabase.getReference(firebaseAuth.getUid());
-            NotesList NewNoteToDataBase = new NotesList(title,text,time); // object of class Todolist in models
+            NotesList NewNoteToDataBase = new NotesList(title,text,time); // object of class notelist in models
 
             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).push().setValue(NewNoteToDataBase).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

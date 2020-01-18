@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp" />
 
-
     <EditText
         android:id="@+id/edit_update_text"
         android:layout_width="match_parent"

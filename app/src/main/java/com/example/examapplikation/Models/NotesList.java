@@ -37,7 +37,3 @@ public class NotesList {
     }
 }
 
-
-// remove time if needed but this affects HOMEACTIVITY ON DISPLAY AND THE EDIT
-// also the input to database from inputactivity
-// also remove get setters
